@@ -1,6 +1,8 @@
-// import * as P from 'parsimmon'
+import * as P from 'parsimmon'
 import * as fs from 'fs'
+
 import { SBFLang } from '../src/sbf-parser'
+import { Parameter, Signal, Operator } from '../src/sbf';
 
 // Parser tests
 describe('parser tests', () => {
@@ -17,7 +19,25 @@ describe('language tests', () => {
         }`
 
     it('will parse a block', () => {
-        console.log(SBFLang.Block.parse(paramBlock))
+        let result: P.Result<Parameter> = SBFLang.Block.parse(paramBlock);
+        expect(result.status).toBe(true)
+        expect((result as P.Success<Parameter>).value.name).toBe('sina_iterator')
+    })
+
+    const signalBlock: string = `{
+        TYPE:SIGNAL
+        NAME:null
+        CONNECT_TAG:null
+        DESCRIPTION:null
+        CONNECT_CLASS:MONO
+        MINIMUM:-32768
+        MAXIMUM:32767
+        }`
+    
+    it('will marshal to correct parameter type', () => {
+        let result: P.Result<Signal> = SBFLang.Block.parse(signalBlock);
+        expect(result.status).toBe(true)
+        expect((result as P.Success<Signal>).value.connectClass).toBe('MONO')
     })
 
     const operatorBlock: string = `{
@@ -41,11 +61,14 @@ describe('language tests', () => {
      }`
 
      it('will parse an operator', () => {
-         console.log(SBFLang.Operator.parse(operatorBlock))
+        let result: P.Result<Operator> = SBFLang.Operator.parse(operatorBlock)
+        expect(result.status).toBe(true)
+        expect((result as P.Success<Operator>).value.name).toBe('c_power')
      })
 
      const db = fs.readFileSync('test/H8000_5_2.sbf', { encoding: 'utf-8' })
      it('will parse database', () => {
-         console.log(SBFLang.Database.tryParse(db))
+        let result: P.Result<Operator[]> = SBFLang.Database.parse(db)
+        expect(result.status).toBe(true)
      })
 })
