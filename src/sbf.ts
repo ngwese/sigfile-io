@@ -109,7 +109,7 @@ export class OperatorStart extends Parameter {
 export class OperatorEnd extends Parameter {
 }
 
-export class Operator {
+export class Module {
     readonly parameters: Parameter[];
     protected readonly _name: string;
     protected readonly _category: string;
@@ -136,10 +136,10 @@ export class Operator {
 }
 
 export class Instance {
-    readonly kind: Operator;
+    readonly kind: Module;
     name: string;
 
-    constructor(kind: Operator) {
+    constructor(kind: Module) {
         this.kind = kind;
         this.name = kind.name;
     }

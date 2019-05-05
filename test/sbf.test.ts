@@ -2,7 +2,7 @@ import * as P from 'parsimmon'
 import * as fs from 'fs'
 
 import { SBFLang } from '../src/sbf-parser'
-import { Parameter, Signal, Operator } from '../src/sbf';
+import { Parameter, Signal, Module } from '../src/sbf';
 
 // Parser tests
 describe('parser tests', () => {
@@ -60,15 +60,15 @@ describe('language tests', () => {
          }
      }`
 
-     it('will parse an operator', () => {
-        let result: P.Result<Operator> = SBFLang.Operator.parse(operatorBlock)
+     it('will parse a module', () => {
+        let result: P.Result<Module> = SBFLang.Module.parse(operatorBlock)
         expect(result.status).toBe(true)
-        expect((result as P.Success<Operator>).value.name).toBe('c_power')
+        expect((result as P.Success<Module>).value.name).toBe('c_power')
      })
 
      const db = fs.readFileSync('test/H8000_5_2.sbf', { encoding: 'utf-8' })
      it('will parse database', () => {
-        let result: P.Result<Operator[]> = SBFLang.Database.parse(db)
+        let result: P.Result<Module[]> = SBFLang.Database.parse(db)
         expect(result.status).toBe(true)
      })
 })

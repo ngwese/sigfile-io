@@ -1,7 +1,7 @@
 import * as P from 'parsimmon'
 
 import { RawProperties } from './sbf-values'
-import { IParameter, Parameter, Control, Signal, Operator, EdString, EdSignal, EdIntegar, EdReal, OperatorStart, OperatorEnd } from './sbf'
+import { IParameter, Parameter, Control, Signal, Module, EdString, EdSignal, EdIntegar, EdReal, OperatorStart, OperatorEnd } from './sbf'
 
 /*
 function propertyParser<T>(name: string, valueParser: P.Parser<T>): P.Parser<[string, T]> {
@@ -61,12 +61,12 @@ export const SBFLang = P.createLanguage({
         .then(r.Property.sepBy(P.newline).map(p => buildParameter(marshalProperties(p))))
         .skip(P.optWhitespace)
         .skip(P.string('}')),
-    Operator: r => P.string('{')
+    Module: r => P.string('{')
         .then(P.newline)
-        .then(r.Block.sepBy(P.newline).map(p => new Operator(p)))
+        .then(r.Block.sepBy(P.newline).map(p => new Module(p)))
         .skip(P.optWhitespace)
         .skip(P.string('}')),
-    Database: r => r.Operator.sepBy(P.newline)
+    Database: r => r.Module.sepBy(P.newline)
         .skip(P.optWhitespace)
         .skip(P.end)
 })
