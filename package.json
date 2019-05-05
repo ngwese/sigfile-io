@@ -1,11 +1,11 @@
 {
-  "name": "vsig-io",
+  "name": "sigfile-io",
   "version": "0.0.0",
   "description": "",
   "keywords": [],
-  "main": "dist/vsig-io.umd.js",
-  "module": "dist/vsig-io.es5.js",
-  "typings": "dist/types/vsig-io.d.ts",
+  "main": "dist/sigfile-io.umd.js",
+  "module": "dist/sigfile-io.es5.js",
+  "typings": "dist/types/sigfile-io.d.ts",
   "files": [
     "dist"
   ],

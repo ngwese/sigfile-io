@@ -1,4 +1,4 @@
-vsig-io
+sigfile-io
 =======
 
 Data types, parsers, and IO routines for Eventide Ultra-Harmonizer SIG and SBF formats. 
